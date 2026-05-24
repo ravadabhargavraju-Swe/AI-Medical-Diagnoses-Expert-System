@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Diagnosis Expert System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #1eaedb;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .symptom-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .checkbox-container {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #555;
+            font-size: 1rem;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+        .btn-diagnose {
+            background-color: #0044cc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-diagnose:hover {
+            background-color: #0033aa;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 4px solid #0044cc;
+            background-color: #f8f9fa;
+            text-align: left;
+            border-radius: 0 6px 6px 0;
+        }
+        .result-box p {
+            margin: 5px 0;
+        }
+        .precautions-section ul {
+            margin: 5px 0 0 20px;
+            padding: 0;
+        }
+        .precautions-section li {
+            margin-bottom: 4px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>AI Medical Diagnosis<br>Expert System</h2>
+        
+        <form action="/diagnose" method="POST">
+            <div class="symptom-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="fever"> Fever
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="cough"> Cough
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="headache"> Headache
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="chest_pain"> Chest Pain
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="breathlessness"> Breathlessness
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="body_pain"> Body Pain
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" name="symptoms" value="sore_throat"> Sore Throat
+                </label>
+            </div>
+            
+            <button type="submit" class="btn-diagnose">Diagnose</button>
+        </form>
+
+        {% if disease %}
+            <div class="result-box">
+                <p><strong>Possible Disease:</strong> {{ disease }}</p>
+                
+                {% if precautions %}
+                    <div class="precautions-section">
+                        <p style="margin-top: 10px;"><strong>Precautions:</strong></p>
+                        <ul>
+                            {% for item in precautions %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
